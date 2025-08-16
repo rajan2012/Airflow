@@ -1,0 +1,151 @@
+curl -LfO "https://airflow.apache.org/docs/apache-airflow/3.0.4/docker-compose.yaml"
+
+
+
+Airflow uses several services: webserver, scheduler, database, worker. Start them using Docker Compose:
+
+docker compose up airflow-init
+
+
+This initializes the database and sets up Airflow.
+
+You should see messages about database initialization completing.
+
+
+create airflow git 
+
+##to start airflow 
+
+docker compose up -d
+
+##after making change in wsl config file 
+wsl --shutdown
+
+
+docker compose up
+
+
+u can open command prompt and run other command in another tab 
+
+docker compose restart airflow-apiserver
+
+docker compose ps
+
+.py in log and when running exec command but not in ui ,why ?
+
+docker exec -it airflow-docker-airflow-apiserver-1 ls -l /opt/airflow/dags
+
+
+docker logs airflow-docker-airflow-dag-processor-1| grep "raj_trier"
+
+
+Restart DAG processor:
+
+docker-compose restart airflow-dag-processor
+
+#to check if any syntax error in file 
+docker exec -it airflow-docker-airflow-dag-processor-1 python /opt/airflow/dags/raj_trier.py
+
+docker-compose restart airflow-docker-airflow-dag-processor-1
+
+
+
+
+
+docker logs airflow-docker-airflow-scheduler-1
+
+
+Open your browser at: http://localhost:8080 . clse this tab if open
+
+airflow users password --username ad
+
+
+#to stop 
+docker compose down
+
+
+Create a file like example_dag.py in your Airflow DAGs folder (usually ~/airflow/dags/):
+
+
+Make sure your Airflow webserver and scheduler are running:
+
+
+docker ps 
+
+#restart process 
+docker restart d79ed9211683
+
+
+docker-compose up (without -d)
+
+Runs in foreground.
+
+Logs are printed to your terminal.
+
+To stop, you press Ctrl+C.
+
+Containers stop when you exit.
+
+2️⃣ docker-compose up -d
+
+Runs in detached mode (background).
+
+You don’t see logs in the terminal.
+
+
+airflow-dag-processor for airflow-docker-airflow-dag-processor-1
+
+docker compose logs airflow-dag-processor
+ 
+Enter the container
+docker compose exec airflow-dag-processor bash
+
+Once inside, you can check manually:
+
+airflow db check
+airflow users list
+airflow dags list
+
+
+docker compose logs airflow-dag-processor
+Search for Python errors like:
+
+SyntaxError
+
+ImportError
+
+ModuleNotFoundError
+
+Broken DAG
+
+
+If it crashes or shows errors → one of your DAG files is invalid.
+Try moving all DAGs out of ./dags (empty folder) → restart the service → see if it turns healthy.
+
+
+docker-compose exec airflow-scheduler python dags/example_dag.py
+
+
+airflow@d79ed9211683:/opt/airflow$
+This means you are already inside the container.
+👉 Inside a container, you cannot run docker-compose — that only works from your host machine (Windows in your case).
+
+
+docker-compose exec airflow-scheduler ls /opt/airflow/dags
+
+
+docker-compose exec airflow-scheduler python /opt/airflow/dags/ra_trier.py
+
+ docker-compose logs -f airflow-dag-processor|findstr "raj"
+
+
+Restart your Airflow services so they re-scan the DAGs:
+
+docker-compose down
+docker-compose up -d
+
+
+docker ps --all
+
+
+restart docker again then compose -d command  or close 8080 tab
